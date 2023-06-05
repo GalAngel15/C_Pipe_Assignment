@@ -194,7 +194,7 @@ int main(int argc, char *argv[])
 		exit(-2);
 	}			
 	fflush(stdout);
-	return 0;
+	exit(-1);
 }
 
 char *mygets(char *buf, int len)
