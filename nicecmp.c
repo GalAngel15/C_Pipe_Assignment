@@ -46,30 +46,30 @@ int main(int argc, char *argv[])
 		return -2;
 	}
 	int pid_lex = fork();	
-	if (pid_lex>0)
+	if (pid_lex>0) 
 	{
 		int pid_len=fork();
-		if (pid_len>0)
+		if (pid_len>0) //in father
 		{
 			if (close(father_lex[0])==-1)
-			{
-				printf("close write filed\n");
-				return -2;
-			}
-			if (close(lex_father[1])==-1)
 			{
 				printf("close read filed\n");
 				return -2;
 			}
-			if (close(father_len[0])==-1)
+			if (close(lex_father[1])==-1)
 			{
 				printf("close write filed\n");
+				return -2;
+			}
+			if (close(father_len[0])==-1)
+			{
+				printf("close read filed\n");
 				return -2;
 			}
 			// close the option of the son to write
 			if (close(len_father[1])==-1)
 			{
-				printf("close read filed\n");
+				printf("close write filed\n");
 				return -2;
 			}
 			while (1)
@@ -162,7 +162,7 @@ int main(int argc, char *argv[])
 			exit(-2);
 		}
 	}
-	else if (pid_lex==0)
+	else if (pid_lex==0) //lex chiled
 	{
 		if (dup2(father_lex[0], STDIN_FILENO) == -1) {
 			printf("change child in failed");
